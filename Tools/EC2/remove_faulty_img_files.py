@@ -47,9 +47,11 @@ class Remove_Faulty_Images():
         bad_counts = defaultdict(int)
         total_bad_count = 0
         for root in self.root_directories:
-            for (dirpath, dirnames, filenames) in os.walk(root):
+            for (dirpath, _, filenames) in os.walk(root):
                 for filename in filenames:
                     try:
+                        if dirpath[-1] != '/':
+                            dirpath += '/'
                         Image.open(dirpath + filename)
                     except OSError:
                         bad_files[root].append(filename)
