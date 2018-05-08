@@ -75,13 +75,13 @@ class Move_Random_Files():
         for content in origin_contents:
             if '.' in content:
                 # Conduct error check
+                origin_files.append(content)
                 try:
                     test_image = image.load_img(content, target_size=(256, 256))
                     test_image = image.img_to_array(test_image)
                     test_image = np.expand_dims(test_image, axis=0)
-                    origin_files.append(content)
                 except:
-                    pass
+                    origin_files.remove(content)
 
         # Choose files at random without replacement. 
         random_files = np.random.choice(origin_files, self.number_of_files, replace=False)
