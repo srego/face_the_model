@@ -80,8 +80,8 @@ class Move_Random_Files():
                     test_image = image.load_img(content, target_size=(256, 256))
                 #     test_image = image.img_to_array(test_image)
                 #     test_image = np.expand_dims(test_image, axis=0)
-                # except:
-                #     origin_files.remove(content)
+                except:
+                    origin_files.remove(content)
 
         # Choose files at random without replacement. 
         random_files = np.random.choice(origin_files, self.number_of_files, replace=False)
