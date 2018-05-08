@@ -77,10 +77,9 @@ class Move_Random_Files():
                 # Conduct error check
                 origin_files.append(content)
                 try:
-                    test_image = image.load_img(content, target_size=(256, 256))
-                #     test_image = image.img_to_array(test_image)
-                #     test_image = np.expand_dims(test_image, axis=0)
+                    image.load_img(content, target_size=(256, 256))
                 except:
+                    os.remove(content)
                     origin_files.remove(content)
 
         # Choose files at random without replacement. 
