@@ -88,7 +88,7 @@ class Move_Random_Files():
 
         # Copy files 
         for file in random_files:
-            shutil.copyfile(file, self.desination_directory + file.split('/')[-1])
+            shutil.move(file, self.desination_directory + file.split('/')[-1])
 
 
 '''
