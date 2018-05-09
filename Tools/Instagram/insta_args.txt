@@ -1,0 +1,1 @@
+instagram-scraper paulmccartney --login-user=___ --login_pass=__
