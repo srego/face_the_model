@@ -23,23 +23,33 @@ To train the CNN, we'll need lots of images of people other than Paul. Here we r
 ## Mechanics
 For this challenge, we will need to leverage the power of GPUs. We will leverage GPU machines on Amazon Web Services (AWS). Setting up AWS can be it's own tutorial, so we'll skip the mechanics of how to do this here. We will need to upload our images to S3. First, we leverage the upload button in the S3 website. To ensure all our images have been properly uploaded, we use the [check_upload](https://github.com/srego/face_the_model/blob/master/Tools/S3/check_upload.py) script that I wrote for this challenge.
 
-To use the GPU, we will need to set up a p2.xlarge machine on EC2. We then use the terminal to move files from S3 to EC2.
+To use the GPU, we will need to set up a p2.xlarge machine on EC2. We then use the terminal to move files from S3 to EC2. Once the data is moved, we will leverage Kera's flow_from_directory infrastructure to easily segment the training and testing data. We will want to randomly segment our images into the training and testing datasets. The randomness helps ensure that we are not adding out own input into the image selection. To easily accomplish this, I created the [move_random_files script](https://github.com/srego/face_the_model/blob/master/Tools/EC2/move_random_files.py). For the best performing model (see below), we will use 1,585 training images per class (paul and not_paul) and 1,000 testing images per class.
 
 ## Model Architecture and Training
 There are lots of ways to set up the CNN. We can choose different number of layers, different optimizers and learning rates, whether to use batch normalization, etc. There are literally thousands of implementation choices to make. I tried lots of models, and found that the most effective one is a four layer CNN connected to a four-layer Artificial Neural Network performed best. This model was inspired by [Super Data Science's
 Deep Learning Udemy course](https://www.udemy.com/deeplearning/).
 
-![Model](https://github.com/srego/face_the_model/blob/master/Model/model_image.png = 502x325) 
+![Model](https://github.com/srego/face_the_model/blob/master/Model/model_image.png)
 
+A few notes on the model:
+* Convolutional Neural Network
+  * All layers use 3 by 3 feature detector (kernel) sizes.
+  * All layers apply padding to the input images.
+  * The first two layers use 32 feature detectors, while the the layers use 64 feature detectors.
+* Artificial Neural Network
+  * The first and third layers use dropout.
+  * The first three layers have 64 unit dimensions.
+  * The last layer has a sigmoid activation function.
+
+For more specifics, see the [model code](https://github.com/srego/face_the_model/blob/master/Model/best_model.py)
 
 ## Evaluation
-See [Jupyter Notebook](https://github.com/srego/face_the_model/blob/master/Model/best_model_test.ipynb).
+To test how well the model did, we measure how many times the model correctly categorizes images it has not seen before. I tested the model against 842 Paul holdout images, 26,144 actor holdout images and 16,198 actress holdout images (from the FaceScrub dataset). The results, which can be seen in the [Jupyter Notebook](https://github.com/srego/face_the_model/blob/master/Model/best_model_test.ipynb), are promising. 95% of Paul images were correctly categorized while 67% of actor and 70% of actress images were correctly categorized. Great! With a little more effort, such as adding more training and testing images, we can probably improve the model. But, for now, this means that we have successfully met our challenge... right?
 
-Get images of cats. [Datasets & Templates](https://www.superdatascience.com/deep-learning/) on the Super Data Science Deep Learning A-Z page.
+## Not so fast...
+Not so fast! Watch what happens when we test the model against categories of images it has never seen before. Lets grab images of cats and dogs from the [Datasets & Templates](https://www.superdatascience.com/deep-learning/) section the Super Data Science Deep Learning A-Z page. What happens when we run the 1,000 and 842 cat and dog images through the model? Only 24% of these images were correctly categorized!
 
-A four-layer Convolutional Neural Network (CNN) connected to a four-layer Artificial Neural Network (with dropout in the first and third layer) trained on 1,585 images per class and tested on 1,000 images per class yielded best results when tested against the validation data. Images of Paul were correctly identified 95% of the time, while images of men and women were were correctly identified as not Paul 71% of the time.
+## Lesson
+The most important lesson from this exercise is that a model is only as good as the data on which it is trained. Yes, we were able to quickly develop a model that  is pretty good at categorizing images of a single individual. But, this model is effective only when compared to images of other people. As soon as we introduced a category of data that the model was not trained on, it's accuracy declined dramatically. One way to solve this would be to create a model that identifies whether the image is that of a person and feed this model into the one we've built here.
 
-## Lessons
-Many iterations of the model and datasets were tried. The best performing models were trained relatively quickly on GPU machines run on Amazon Web Services using TensorFlow and Keras. This shows that a CNN can be quickly deployed to pick images of one person amongst images of lots of people fairly accurately. However, when the model was tested against images of cats and dogs, its performance declined dramatically -- it incorrectly identified Paul in about three-quarters of the images.
-
-This project delivers powerful lessons about the efficacy of quickly deploying models. It reminds us that a model is only as good as the data on which it is trained. It cements the fact that accuracy is just one measure that should not be taken in isolation -- that precision and recall should always be considered.
+Remember to always test your model! Throw in a curveball and see how it performs. 
