@@ -29,10 +29,13 @@ To use the GPU, we will need to set up a p2.xlarge machine on EC2. We then use t
 There are lots of ways to set up the CNN. We can choose different number of layers, different optimizers and learning rates, whether to use batch normalization, etc. There are literally thousands of implementation choices to make. I tried lots of models, and found that the most effective one is a four layer CNN connected to a four-layer Artificial Neural Network performed best. This model was inspired by [Super Data Science's
 Deep Learning Udemy course](https://www.udemy.com/deeplearning/).
 
-## Evaluation
-See Jupyter Notebook.
+![Model](https://github.com/srego/face_the_model/blob/master/Model/model_image.png)
 
-Get images of cats.
+
+## Evaluation
+See [Jupyter Notebook](https://github.com/srego/face_the_model/blob/master/Model/best_model_test.ipynb).
+
+Get images of cats. [Datasets & Templates](https://www.superdatascience.com/deep-learning/) on the Super Data Science Deep Learning A-Z page.
 
 A four-layer Convolutional Neural Network (CNN) connected to a four-layer Artificial Neural Network (with dropout in the first and third layer) trained on 1,585 images per class and tested on 1,000 images per class yielded best results when tested against the validation data. Images of Paul were correctly identified 95% of the time, while images of men and women were were correctly identified as not Paul 71% of the time.
 
