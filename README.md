@@ -2,7 +2,7 @@
 This project examines the efficacy of quickly building a model from scratch to classify images of one person’s face using readily available, open-source technologies.
 
 ## Background
-From unlocking the iPhone X to tagging images on FaceBook, facial recognition is becoming increasingly prevalent. Yet, Apple and FaceBook have virtually unlimited resources for developing these technologies --  the rest of us have to make do with less. This begs a question: can an individual (or small organization) build an algorithm from scratch with open source technologies to detect images of one person's face with limited time and resources?
+From unlocking the iPhone X to tagging images on Facebook, facial recognition is becoming increasingly prevalent. Yet, Apple and Facebook have virtually unlimited resources for developing these technologies --  the rest of us have to make do with less. This begs a question: can an individual (or small organization) build an algorithm from scratch with open source technologies to detect images of one person's face with limited time and resources?
 
 ## The Challenge
 To meet this challenge we'll first need to choose a model. How do we pick one model from an abundance of options? In 2012 the Super Vision algorithm won the ImageNet Large-Scale Visual Recognition Challenge by using a Convolutional Neural Network (CNN). This was a groundbreaking result that shifted the paradigm of computer vision. CNNs can be trained on relatively small datasets and without too laborious tuning. They also train relatively quickly on graphics processing units (GPUs). This will be our model of choice.
@@ -52,4 +52,4 @@ Not so fast! Watch what happens when we test the model against categories of ima
 ## Lesson
 The most important lesson from this exercise is that a model is only as good as the data on which it is trained. Yes, we were able to quickly develop a model that  is pretty good at categorizing images of a single individual. But, this model is effective only when compared to images of other people. As soon as we introduced a category of data that the model was not trained on, it's accuracy declined dramatically. One way to solve this would be to create a model that identifies whether the image is that of a person and feed this model into the one we've built here.
 
-Remember to always test your model! Throw in a curveball and see how it performs. 
+Remember to always test your model! Throw in a curveball and see how it performs.
