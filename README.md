@@ -29,7 +29,7 @@ To use the GPU, we will need to set up a p2.xlarge machine on EC2. We then use t
 There are lots of ways to set up the CNN. We can choose different number of layers, different optimizers and learning rates, whether to use batch normalization, etc. There are literally thousands of implementation choices to make. I tried lots of models, and found that the most effective one is a four layer CNN connected to a four-layer Artificial Neural Network performed best. This model was inspired by [Super Data Science's
 Deep Learning Udemy course](https://www.udemy.com/deeplearning/).
 
-![Model](https://github.com/srego/face_the_model/blob/master/Model/model_image.png)
+![Model](https://github.com/srego/face_the_model/blob/master/Model/model_image.png = 502x325) 
 
 
 ## Evaluation
