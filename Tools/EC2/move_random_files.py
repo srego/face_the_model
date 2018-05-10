@@ -88,30 +88,3 @@ class Move_Random_Files():
         # Copy files 
         for file in random_files:
             shutil.move(file, self.desination_directory + file.split('/')[-1])
-
-
-'''
-Sample code:
-import sys
-sys.path.append('/home/ubuntu/face_the_model/Tools/EC2')
-from copy_random_files import Copy_Random_Files
-root_dir_actor = '/home/ubuntu/images/actors'
-dest_dir_actor = '/home/ubuntu/paul_model_4/training_set/not_paul'
-
-files_to_copy = Copy_Random_Files(1585, root_dir_actor, dest_dir_actor)
-files_to_copy.copy_files()
-
-dest_dir_actor = '/home/ubuntu/paul_model_4/test_set/not_paul'
-files_to_copy = Copy_Random_Files(1000, root_dir_actor, dest_dir_actor)
-files_to_copy.copy_files()
-
-
-
-origin_dir = '/Users/sergiorego/Desktop/test_walk'
-dest_dir_paul = '/Users/sergiorego/Desktop/test_dest/paul'
-
-file_copy = Copy_Random_Files(3, origin_dir, dest_dir_paul)
-
-file_copy.copy_files()
-
-'''
